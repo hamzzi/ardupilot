@@ -145,7 +145,7 @@ bool Copter::ekf_over_threshold()
 void Copter::failsafe_ekf_event()
 {
     FILE *fptr = fopen("state.txt","w");
-    fprintf(fptr,"%d %d %d %d %d %d %d %d %d %d %d %d %d", (int)control_mode, motors->armed(), copter.position_ok(), flightmode->is_landing(), flightmode->in_guided_mode(), flightmode->is_autopilot(), copter.flightmode->requires_GPS(), failsafe.radio, battery.has_failsafed(), failsafe.gcs, failsafe.ekf, failsafe.terrain, failsafe.adsb);
+    fprintf(fptr,"%d %d %d %d %d %d %d %d %d %d %d %d %d\n", (int)control_mode, motors->armed(), copter.position_ok(), flightmode->is_landing(), flightmode->in_guided_mode(), flightmode->is_autopilot(), copter.flightmode->requires_GPS(), failsafe.radio, battery.has_failsafed(), failsafe.gcs, failsafe.ekf, failsafe.terrain, failsafe.adsb);
     fclose(fptr);
     // return immediately if ekf failsafe already triggered
     if (failsafe.ekf) {

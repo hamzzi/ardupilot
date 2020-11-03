@@ -131,9 +131,10 @@ void Copter::read_radio()
 void Copter::set_throttle_and_failsafe(uint16_t throttle_pwm)
 {
     // if failsafe not enabled pass through throttle and exit
-    if(g.failsafe_throttle == FS_THR_DISABLED) {
-        return;
-    }
+    // FAILSAFE TEST
+    // if(g.failsafe_throttle == FS_THR_DISABLED) {
+    //     return;
+    // }
 
     //check for low throttle value
     if (throttle_pwm < (uint16_t)g.failsafe_throttle_value) {
