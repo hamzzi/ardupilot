@@ -13,6 +13,10 @@ bool Copter::failsafe_option(FailsafeOption opt) const
 void Copter::failsafe_radio_on_event()
 {
     AP::logger().Write_Error(LogErrorSubsystem::FAILSAFE_RADIO, LogErrorCode::FAILSAFE_OCCURRED);
+    FILE *fptr = fopen("state.txt","w");
+    fprintf(fptr,"%d %d %d %d %d %d %d %d %d %d %d %d %d", (int)control_mode, motors->armed(), copter.position_ok(), flightmode->is_landing(), flightmode->in_guided_mode(), flightmode->is_autopilot(), copter.flightmode->requires_GPS(), failsafe.radio, battery.has_failsafed(), failsafe.gcs, failsafe.ekf, failsafe.terrain, failsafe.adsb);
+    fclose(fptr);
+    // printf("%d %d\n", (int)control_mode, flightmode->is_landing());
 
     // set desired action based on FS_THR_ENABLE parameter
     Failsafe_Action desired_action;
@@ -85,6 +89,9 @@ void Copter::failsafe_radio_off_event()
 void Copter::handle_battery_failsafe(const char *type_str, const int8_t action)
 {
     AP::logger().Write_Error(LogErrorSubsystem::FAILSAFE_BATT, LogErrorCode::FAILSAFE_OCCURRED);
+    FILE *fptr = fopen("state.txt","w");
+    fprintf(fptr,"%d %d %d %d %d %d %d %d %d %d %d %d %d", (int)control_mode, motors->armed(), copter.position_ok(), flightmode->is_landing(), flightmode->in_guided_mode(), flightmode->is_autopilot(), copter.flightmode->requires_GPS(), failsafe.radio, battery.has_failsafed(), failsafe.gcs, failsafe.ekf, failsafe.terrain, failsafe.adsb);
+    fclose(fptr);
 
     Failsafe_Action desired_action = (Failsafe_Action)action;
 
@@ -144,6 +151,10 @@ void Copter::failsafe_gcs_on_event(void)
 {
     AP::logger().Write_Error(LogErrorSubsystem::FAILSAFE_GCS, LogErrorCode::FAILSAFE_OCCURRED);
     RC_Channels::clear_overrides();
+
+    FILE *fptr = fopen("state.txt","w");
+    fprintf(fptr,"%d %d %d %d %d %d %d %d %d %d %d %d %d", (int)control_mode, motors->armed(), copter.position_ok(), flightmode->is_landing(), flightmode->in_guided_mode(), flightmode->is_autopilot(), copter.flightmode->requires_GPS(), failsafe.radio, battery.has_failsafed(), failsafe.gcs, failsafe.ekf, failsafe.terrain, failsafe.adsb);
+    fclose(fptr);
 
     // convert the desired failsafe response to the Failsafe_Action enum
     Failsafe_Action desired_action;
