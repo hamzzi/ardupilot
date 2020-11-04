@@ -47,6 +47,13 @@ bool ModeGuided::init(bool ignore_checks)
     return true;
 }
 
+void ModeGuided::dump_state()
+{
+    FILE *fptr = fopen("state.txt","a");
+    fprintf(fptr,"%d\n", (int)mode());
+    fprintf(fptr,"%d %d\n", (int)motors->get_desired_spool_state(), (int)motors->get_spool_state());
+    fclose(fptr);
+}
 
 // do_user_takeoff_start - initialises waypoint controller to implement take-off
 bool ModeGuided::do_user_takeoff_start(float takeoff_alt_cm)

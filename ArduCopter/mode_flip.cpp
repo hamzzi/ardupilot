@@ -32,6 +32,14 @@
 #define FLIP_PITCH_BACK      1      // used to set flip_dir
 #define FLIP_PITCH_FORWARD  -1      // used to set flip_dir
 
+void ModeFlip::dump_state()
+{
+    FILE *fptr = fopen("state.txt","a");
+    fprintf(fptr,"%d\n", (int)_state);
+    fprintf(fptr,"%d %d\n", (int)motors->get_desired_spool_state(), (int)motors->get_spool_state());
+    fclose(fptr);
+}
+
 // flip_init - initialise flip controller
 bool ModeFlip::init(bool ignore_checks)
 {

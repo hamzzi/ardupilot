@@ -6,6 +6,13 @@
 
 #if AUTOTUNE_ENABLED == ENABLED
 
+void ModeAutoTune::dump_state()
+{
+    FILE *fptr = fopen("state.txt","a");
+    fprintf(fptr,"%d %d\n", (int)copter.motors->get_desired_spool_state(), (int)copter.motors->get_spool_state());
+    fclose(fptr);
+}
+
 bool AutoTune::init()
 {
     // use position hold while tuning if we were in QLOITER

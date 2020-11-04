@@ -9,6 +9,14 @@
  * and the lower implementation of the waypoint or landing controllers within those states
  */
 
+void ModeRTL::dump_state()
+{
+    FILE *fptr = fopen("state.txt","a");
+    fprintf(fptr,"%d %d\n", (int)_state, (int)_state_complete);
+    fprintf(fptr,"%d %d\n", (int)motors->get_desired_spool_state(), (int)motors->get_spool_state());
+    fclose(fptr);
+}
+
 // rtl_init - initialise rtl controller
 bool ModeRTL::init(bool ignore_checks)
 {

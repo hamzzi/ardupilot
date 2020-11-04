@@ -2,6 +2,13 @@
 
 #if MODE_BRAKE_ENABLED == ENABLED
 
+void ModeBrake::dump_state()
+{
+    FILE *fptr = fopen("state.txt","a");
+    fprintf(fptr,"%d %d\n", (int)motors->get_desired_spool_state(), (int)motors->get_spool_state());
+    fclose(fptr);
+}
+
 /*
  * Init and run calls for brake flight mode
  */

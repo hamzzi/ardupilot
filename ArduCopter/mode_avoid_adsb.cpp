@@ -9,6 +9,13 @@
  * each source are only accepted and processed in the appropriate flight mode.
  */
 
+void ModeAvoidADSB::dump_state()
+{
+    FILE *fptr = fopen("state.txt","a");
+    fprintf(fptr,"%d %d\n", (int)copter.motors->get_desired_spool_state(), (int)copter.motors->get_spool_state());
+    fclose(fptr);
+}
+
 // initialise avoid_adsb controller
 bool ModeAvoidADSB::init(const bool ignore_checks)
 {

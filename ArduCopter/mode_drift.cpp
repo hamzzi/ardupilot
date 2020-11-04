@@ -28,6 +28,14 @@
  # define DRIFT_THR_MAX         0.787f  // throttle assist will be active when pilot's throttle is below this value
 #endif
 
+
+void ModeDrift::dump_state()
+{
+    FILE *fptr = fopen("state.txt","a");
+    fprintf(fptr,"%d %d\n", (int)motors->get_desired_spool_state(), (int)motors->get_spool_state());
+    fclose(fptr);
+}
+
 // drift_init - initialise drift controller
 bool ModeDrift::init(bool ignore_checks)
 {

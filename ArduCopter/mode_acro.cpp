@@ -4,6 +4,16 @@
 
 #if MODE_ACRO_ENABLED == ENABLED
 
+
+void ModeAcro::dump_state()
+{
+    FILE *fptr = fopen("state.txt","a");
+    fprintf(fptr,"%d %d\n", (int)g.acro_trainer, (int)g2.acro_options.get());
+    fprintf(fptr,"%d %d\n", (int)motors->get_desired_spool_state(), (int)motors->get_spool_state());
+    fclose(fptr);
+}
+
+
 /*
  * Init and run calls for acro flight mode
  */

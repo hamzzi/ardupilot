@@ -13,6 +13,14 @@
  * TODO: ensure AC_AVOID_ENABLED is true because we rely on it velocity limiting functions
  */
 
+void ModeFollow::dump_state()
+{
+    FILE *fptr = fopen("state.txt","a");
+    fprintf(fptr,"%d %d\n", (int)copter.motors->get_desired_spool_state(), (int)copter.motors->get_spool_state());
+    fclose(fptr);
+}
+
+
 // initialise follow mode
 bool ModeFollow::init(const bool ignore_checks)
 {

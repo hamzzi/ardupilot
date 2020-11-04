@@ -24,6 +24,20 @@
 #define POSHOLD_WIND_COMP_ESTIMATE_SPEED_MAX    10      // wind compensation estimates will only run when velocity is at or below this speed in cm/s
 #define POSHOLD_WIND_COMP_LEAN_PCT_MAX          0.6666f // wind compensation no more than 2/3rds of angle max to ensure pilot can always override
 
+void ModePosHold::dump_state()
+{
+    float target_climb_rate = get_pilot_desired_climb_rate(channel_throttle->get_control_in());
+    target_climb_rate = constrain_float(target_climb_rate, -get_pilot_speed_dn(), g.pilot_speed_up);
+    // Pos Hold State Machine Determination
+    AltHoldModeState poshold_state = get_alt_hold_state(target_climb_rate);
+
+    FILE *fptr = fopen("state.txt","a");
+    fprintf(fptr,"%d %d %d\n", (int)poshold_state, (int)roll_mode, (int)pitch_mode);
+    fprintf(fptr,"%d %d\n", (int)motors->get_desired_spool_state(), (int)motors->get_spool_state());
+    fclose(fptr);
+}
+
+
 // poshold_init - initialise PosHold controller
 bool ModePosHold::init(bool ignore_checks)
 {

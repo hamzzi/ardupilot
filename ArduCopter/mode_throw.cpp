@@ -2,6 +2,14 @@
 
 #if MODE_THROW_ENABLED == ENABLED
 
+void ModeThrow::dump_state()
+{
+    FILE *fptr = fopen("state.txt","a");
+    fprintf(fptr,"%d %d\n", (int)stage, (int)prev_stage);
+    fprintf(fptr,"%d %d\n", (int)motors->get_desired_spool_state(), (int)motors->get_spool_state());
+    fclose(fptr);
+}
+
 // throw_init - initialise throw controller
 bool ModeThrow::init(bool ignore_checks)
 {

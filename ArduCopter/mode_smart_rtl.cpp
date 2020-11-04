@@ -9,6 +9,14 @@
  * Once the copter is close to home, it will run a standard land controller.
  */
 
+void ModeSmartRTL::dump_state()
+{
+    FILE *fptr = fopen("state.txt","a");
+    fprintf(fptr,"%d\n", (int)smart_rtl_state);
+    fprintf(fptr,"%d %d\n", (int)motors->get_desired_spool_state(), (int)motors->get_spool_state());
+    fclose(fptr);
+}
+
 bool ModeSmartRTL::init(bool ignore_checks)
 {
     if (g2.smart_rtl.is_active()) {

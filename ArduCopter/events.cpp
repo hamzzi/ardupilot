@@ -16,6 +16,7 @@ void Copter::failsafe_radio_on_event()
     FILE *fptr = fopen("state.txt","w");
     fprintf(fptr,"%d %d %d %d %d %d %d %d %d %d %d %d %d\n", (int)control_mode, motors->armed(), copter.position_ok(), flightmode->is_landing(), flightmode->in_guided_mode(), flightmode->is_autopilot(), copter.flightmode->requires_GPS(), failsafe.radio, battery.has_failsafed(), failsafe.gcs, failsafe.ekf, failsafe.terrain, failsafe.adsb);
     fclose(fptr);
+    copter.flightmode->dump_state();
     // printf("%d %d\n", (int)control_mode, flightmode->is_landing());
 
     // set desired action based on FS_THR_ENABLE parameter
@@ -92,6 +93,7 @@ void Copter::handle_battery_failsafe(const char *type_str, const int8_t action)
     FILE *fptr = fopen("state.txt","w");
     fprintf(fptr,"%d %d %d %d %d %d %d %d %d %d %d %d %d\n", (int)control_mode, motors->armed(), copter.position_ok(), flightmode->is_landing(), flightmode->in_guided_mode(), flightmode->is_autopilot(), copter.flightmode->requires_GPS(), failsafe.radio, battery.has_failsafed(), failsafe.gcs, failsafe.ekf, failsafe.terrain, failsafe.adsb);
     fclose(fptr);
+    copter.flightmode->dump_state();
 
     Failsafe_Action desired_action = (Failsafe_Action)action;
 
@@ -155,6 +157,7 @@ void Copter::failsafe_gcs_on_event(void)
     FILE *fptr = fopen("state.txt","w");
     fprintf(fptr,"%d %d %d %d %d %d %d %d %d %d %d %d %d\n", (int)control_mode, motors->armed(), copter.position_ok(), flightmode->is_landing(), flightmode->in_guided_mode(), flightmode->is_autopilot(), copter.flightmode->requires_GPS(), failsafe.radio, battery.has_failsafed(), failsafe.gcs, failsafe.ekf, failsafe.terrain, failsafe.adsb);
     fclose(fptr);
+    copter.flightmode->dump_state();
 
     // convert the desired failsafe response to the Failsafe_Action enum
     Failsafe_Action desired_action;

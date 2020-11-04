@@ -96,6 +96,8 @@ public:
         return pos_control->get_desired_velocity();
     }
 
+    virtual void dump_state() {};
+
 protected:
 
     // navigation support functions
@@ -274,6 +276,7 @@ public:
     };
 
     virtual void run() override;
+    void dump_state() override;
 
     bool requires_GPS() const override { return false; }
     bool has_manual_throttle() const override { return true; }
@@ -283,6 +286,7 @@ public:
     void exit();
     // whether an air-mode aux switch has been toggled
     void air_mode_aux_changed();
+    
 
 protected:
 
@@ -331,6 +335,7 @@ public:
     bool has_user_takeoff(bool must_navigate) const override {
         return !must_navigate;
     }
+    void dump_state() override;
 
 protected:
 
@@ -350,6 +355,7 @@ public:
 
     bool init(bool ignore_checks) override;
     void run() override;
+    void dump_state() override;
 
     bool requires_GPS() const override { return true; }
     bool has_manual_throttle() const override { return false; }
@@ -551,6 +557,7 @@ public:
 
     bool init(bool ignore_checks) override;
     void run() override;
+    void dump_state() override;
 
     bool requires_GPS() const override { return false; }
     bool has_manual_throttle() const override { return false; }
@@ -577,6 +584,7 @@ public:
 
     bool init(bool ignore_checks) override;
     void run() override;
+    void dump_state() override;
 
     bool requires_GPS() const override { return true; }
     bool has_manual_throttle() const override { return false; }
@@ -584,6 +592,8 @@ public:
     bool is_autopilot() const override { return false; }
 
     void timeout_to_loiter_ms(uint32_t timeout_ms);
+
+    
 
 protected:
 
@@ -613,6 +623,8 @@ public:
     bool has_manual_throttle() const override { return false; }
     bool allows_arming(bool from_gcs) const override { return false; };
     bool is_autopilot() const override { return true; }
+
+    void dump_state() override;
 
 protected:
 
@@ -644,6 +656,8 @@ public:
     bool allows_arming(bool from_gcs) const override { return true; };
     bool is_autopilot() const override { return false; }
 
+    void dump_state() override;
+
 protected:
 
     const char *name() const override { return "DRIFT"; }
@@ -669,6 +683,8 @@ public:
     bool has_manual_throttle() const override { return false; }
     bool allows_arming(bool from_gcs) const override { return false; };
     bool is_autopilot() const override { return false; }
+
+    void dump_state() override;
 
 protected:
 
@@ -709,6 +725,7 @@ public:
 
     bool init(bool ignore_checks) override;
     void run(void) override;
+    void dump_state() override;
 
     bool requires_GPS() const override { return false; }
     bool has_manual_throttle() const override { return false; }
@@ -791,6 +808,7 @@ public:
 
     bool init(bool ignore_checks) override;
     void run() override;
+    void dump_state() override;
 
     bool requires_GPS() const override { return true; }
     bool has_manual_throttle() const override { return false; }
@@ -857,6 +875,7 @@ public:
 
     bool init(bool ignore_checks) override;
     void run() override;
+    void dump_state() override;
 
     bool requires_GPS() const override { return false; }
     bool has_manual_throttle() const override { return false; }
@@ -881,6 +900,7 @@ public:
 
     bool init(bool ignore_checks) override;
     void run() override;
+    void dump_state() override;
 
     bool requires_GPS() const override { return false; }
     bool has_manual_throttle() const override { return false; }
@@ -911,6 +931,7 @@ public:
 
     bool init(bool ignore_checks) override;
     void run() override;
+    void dump_state() override;
 
     bool requires_GPS() const override { return true; }
     bool has_manual_throttle() const override { return false; }
@@ -952,6 +973,7 @@ public:
 
     bool init(bool ignore_checks) override;
     void run() override;
+    void dump_state() override;
 
     bool requires_GPS() const override { return true; }
     bool has_manual_throttle() const override { return false; }
@@ -1034,6 +1056,8 @@ public:
         return run(true);
     }
     void run(bool disarm_on_land);
+
+    void dump_state() override;
 
     bool requires_GPS() const override { return true; }
     bool has_manual_throttle() const override { return false; }
@@ -1132,6 +1156,8 @@ public:
     bool init(bool ignore_checks) override;
     void run() override;
 
+    void dump_state() override;
+
     bool requires_GPS() const override { return true; }
     bool has_manual_throttle() const override { return false; }
     bool allows_arming(bool from_gcs) const override { return false; }
@@ -1173,6 +1199,8 @@ public:
     bool init(bool ignore_checks) override;
     void run() override;
 
+    void dump_state() override;
+
     bool requires_GPS() const override { return false; }
     bool has_manual_throttle() const override { return false; }
     bool allows_arming(bool from_gcs) const override { return true; };
@@ -1198,6 +1226,7 @@ public:
     using Mode::Mode;
 
     virtual void run() override;
+    void dump_state() override;
 
     bool requires_GPS() const override { return false; }
     bool has_manual_throttle() const override { return true; }
@@ -1237,6 +1266,8 @@ public:
 
     bool init(bool ignore_checks) override;
     void run() override;
+
+    void dump_state() override;
 
     bool requires_GPS() const override { return true; }
     bool has_manual_throttle() const override { return false; }
@@ -1304,6 +1335,7 @@ public:
 
     bool init(bool ignore_checks) override;
     void run() override;
+    void dump_state() override;
 
     bool requires_GPS() const override { return true; }
     bool has_manual_throttle() const override { return false; }
@@ -1355,6 +1387,7 @@ public:
 
     bool init(bool ignore_checks) override;
     void run() override;
+    void dump_state() override;
 
     bool requires_GPS() const override { return true; }
     bool has_manual_throttle() const override { return false; }
@@ -1382,6 +1415,7 @@ public:
     bool init(bool ignore_checks) override;
     void exit();
     void run() override;
+    void dump_state() override;
 
     bool requires_GPS() const override { return true; }
     bool has_manual_throttle() const override { return false; }
@@ -1424,6 +1458,7 @@ public:
     bool init(bool ignore_checks) override;
     void exit();
     void run() override;
+    void dump_state() override;
 
     // auto control methods.  copter flies grid pattern
     void run_auto();

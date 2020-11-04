@@ -9,6 +9,14 @@
 #define ZIGZAG_WP_RADIUS_CM 300
 #define ZIGZAG_LINE_INFINITY -1
 
+void ModeZigZag::dump_state()
+{
+    FILE *fptr = fopen("state.txt","a");
+    fprintf(fptr,"%d %d %d\n", (int)stage, (int)auto_stage, (int)is_auto);
+    fprintf(fptr,"%d %d\n", (int)motors->get_desired_spool_state(), (int)motors->get_spool_state());
+    fclose(fptr);
+}
+
 const AP_Param::GroupInfo ModeZigZag::var_info[] = {
     // @Param: AUTO_ENABLE
     // @DisplayName: ZigZag auto enable/disable

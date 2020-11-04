@@ -2,6 +2,20 @@
 
 #if MODE_SPORT_ENABLED == ENABLED
 
+void ModeSport::dump_state()
+{
+    float target_climb_rate = get_pilot_desired_climb_rate(channel_throttle->get_control_in());
+    target_climb_rate = constrain_float(target_climb_rate, -get_pilot_speed_dn(), g.pilot_speed_up);
+
+    // Sport State Machine Determination
+    AltHoldModeState sport_state = get_alt_hold_state(target_climb_rate);
+
+    FILE *fptr = fopen("state.txt","a");
+    fprintf(fptr,"%d\n", (int)sport_state);
+    fprintf(fptr,"%d %d\n", (int)motors->get_desired_spool_state(), (int)motors->get_spool_state());
+    fclose(fptr);
+}
+
 /*
  * Init and run calls for sport flight mode
  */
